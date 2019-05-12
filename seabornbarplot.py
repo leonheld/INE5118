@@ -8,13 +8,15 @@ poke_table = pd.read_csv('Pokemon.csv')
 numb = poke_table.Num
 hp = poke_table.HP
 total = poke_table.Total
+plt.rc('text', usetex=True)
+plt.rc('font', family='serif')
 sns.set(style = "darkgrid", context = "paper")
-#ax = sns.distplot(hp, kde=True, rug=False)
 
 sns.distplot(total, kde=True, rug=False)
-#ax.set_xlabel('Group')
-#ax.set_ylabel('Scores')
-#ax.set_title('Scores by group and gender')
-#ax.set_xticklabels(('A', 'B', 'C', 'D', 'E'))
-#ax.legend()
+plt.xlabel(r'\textbf{time} (s)')
+plt.ylabel(r'\textbf{time} (s)')
+plt.title(r"\TeX\ is Number "
+          r"$\displaystyle\sum_{n=1}^\infty\frac{-e^{i\pi}}{2^n}$!",
+          fontsize=16, color='gray')
+plt.legend()
 plt.show()

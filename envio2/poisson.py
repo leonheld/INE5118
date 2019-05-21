@@ -5,26 +5,29 @@ import collections
 import scipy
 from scipy.stats import poisson
 from scipy.stats import norm
+from math import sqrt
 
 sns.set(style = "darkgrid", context = "paper")
+plt.rc('text', usetex=True)
+plt.rc('font', family='serif')
 
-def poi(start, stop, λ):
+def poipmf(start, stop, lamb):
 	k = np.arange(start, stop, 1)
-	pmf = scipy.stats.poisson.pmf(k, λ)
+	pmf = scipy.stats.poisson.pmf(k, lamb)
 
-	mu = np.mean(pmf)
-	sigma = np.std(pmf)
+	mu = lamb
+	sigma = sqrt(lamb)
 
-	x = np.linspace(start, stop, 1000)
-	#x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
+	x = np.linspace(mu - 5*sigma, mu + 5*sigma, 100)
 
-	plt.plot(x, scipy.stats.norm.pdf(x, mu, sigma))
-	plt.stem(k, pmf, '-.', bottom=0)
+	plt.plot(x, scipy.stats.norm.pdf(x, mu, sigma), color = '#353131')
+	plt.stem(k, pmf, '--', bottom=0)
+	plt.title(r"Poisson Normal Appr. with $\lambda$ = %d" % (lamb))
 	plt.show()
 
-λ = [1, 5, 10, 200]
+lamb = [1, 5, 10, 200]
 
-poi(0, 13, λ[0]) 
-poi(0, 17, λ[1]) 
-poi(0, 25, λ[2]) 
-poi(0, 200, λ[3]) 
+poipmf(0, 13, lamb[0]) 
+poipmf(0, 17, lamb[1]) 
+poipmf(0, 25, lamb[2]) 
+poipmf(0, 200, lamb[3]) 
